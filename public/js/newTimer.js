@@ -8,6 +8,8 @@ startTime = new Date()
 // endTime is the value when the timer is over
 endTime = new Date(startTime.getTime() + sessionLength)
 
+document.querySelector("#time").innerHTML = `${("0" + Math.floor(sessionLength/1000/60)).slice(-2)}:${("0" + Math.floor(sessionLength/1000%60)).slice(-2)}`;
+
 console.log(startTime, endTime)
 
 function setTimer() {
@@ -22,8 +24,11 @@ function setTimer() {
 		return 
 	}
 	
+	// update DOM timer
+    document.querySelector("#time").innerHTML = `${("0" + Math.floor(leftTime/1000/60)).slice(-2)}:${("0" + Math.floor(leftTime/1000%60)).slice(-2)}`;
+	
 	setTimeout(setTimer, 500)
 	
 }
 
-setTimeout(setTimer, 500)
+setTimeout(setTimer, 900)
