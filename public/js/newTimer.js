@@ -1,21 +1,27 @@
+'use strict'
 
 // sessionLength = 1_500_000
-sessionLength = 10_000
+let sessionLength = 10_000
 
 // startTime is going to be set by the user
-startTime = new Date()
+let startTime = new Date()
 
 // endTime is the value when the timer is over
-endTime = new Date(startTime.getTime() + sessionLength)
+let endTime = new Date(startTime.getTime() + sessionLength)
 
 setDOMTimer(sessionLength)
 
 console.log(startTime, endTime)
 
-function setTimer() {
+let isPaused = false; 
 
-	date = new Date()
-	leftTime = endTime.getTime() - date.getTime()
+function setTimer() {
+	if (isPaused) {
+		return
+	}
+
+	let date = new Date()
+	let leftTime = endTime.getTime() - date.getTime()
 
 	
 	if (date >= endTime) {
@@ -36,4 +42,10 @@ setTimeout(setTimer, 900)
 function setDOMTimer(time) {
     document.querySelector("#time").innerHTML = `${("0" + Math.floor(time/1000/60)).slice(-2)}:${("0" + Math.floor(time/1000%60)).slice(-2)}`;
 
+}
+
+
+pauseButton.onclick = function() {
+	isPaused = true
+	console.log('set isPaused to', isPaused)
 }
