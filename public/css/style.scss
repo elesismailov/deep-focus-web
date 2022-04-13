@@ -107,6 +107,9 @@ body{
     #time[data-mode="running"] ~ .buttons #pauseButton {
         display: flex;
     }
+    #time[data-mode="reset"] ~ .buttons #startButton {
+        display: flex;
+    }
     #time[data-mode="paused"] ~ .buttons #startButton {
         display: flex;
     }

@@ -111,6 +111,12 @@ body {
   display: flex;
 }
 
+.main-cont #time[data-mode="reset"] ~ .buttons #startButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .main-cont #time[data-mode="paused"] ~ .buttons #startButton {
   display: -webkit-box;
   display: -ms-flexbox;

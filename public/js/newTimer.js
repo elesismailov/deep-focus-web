@@ -1,10 +1,5 @@
 'use strict'
 
-function setDOMTimer(time) {
-    document.querySelector("#time").innerHTML = `${("0" + Math.floor(time/1000/60)).slice(-2)}:${("0" + Math.floor(time/1000%60)).slice(-2)}`;
-
-}
-
 // sessionLength = 1_500_000
 let sessionLength = 10_000
 
@@ -18,9 +13,19 @@ let leftTimeWhenPaused = null;
 
 setDOMTimer(sessionLength)
 
-console.log(startTime, endTime)
-
 let isPaused = false; 
+
+// time modes: running, paused, break, reset
+
+pauseButton.onclick = pause;
+startButton.onclick = resume;
+
+
+
+function setDOMTimer(time) {
+    document.querySelector("#time").innerHTML = `${("0" + Math.floor(time/1000/60)).slice(-2)}:${("0" + Math.floor(time/1000%60)).slice(-2)}`;
+
+}
 
 function main() {
 	if (isPaused) {
@@ -32,8 +37,10 @@ function main() {
 
 	
 	if (date >= endTime) {
+		console.log('timer has stopped')
 		// session is over
 		// save the work
+		// ?start the break or reset
 		return 
 	}
 	
@@ -43,23 +50,21 @@ function main() {
 	
 }
 
-
-// time modes: running, paused, break
-
-pauseButton.onclick = function() {
-	isPaused = true;
-	let now = Date.now();
-	leftTimeWhenPaused = endTime - now;
-
-	time.setAttribute('data-mode', 'paused')
-}
-
-startButton.onclick = function(event) {
-	startTime = Date.now();
+function resume() {
 	isPaused = false;
 
+	startTime = Date.now();
 	endTime = startTime + (leftTimeWhenPaused ? leftTimeWhenPaused : sessionLength);
 
 	time.setAttribute('data-mode', 'running')
 	main()
+}
+
+function pause() {
+	isPaused = true;
+
+	let now = Date.now();
+	leftTimeWhenPaused = endTime - now;
+
+	time.setAttribute('data-mode', 'paused')
 }
