@@ -123,7 +123,7 @@ body {
   display: flex;
 }
 
-.main-cont #time[data-mode="break"] ~ .buttons #pauseButton {
+.main-cont #time[data-mode="break"] ~ .buttons #breakButton {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

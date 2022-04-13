@@ -9,10 +9,12 @@ function setDOMTimer(time) {
 let sessionLength = 10_000
 
 // startTime is going to be set by the user
-let startTime = new Date()
+let startTime = Date.now()
 
 // endTime is the value when the timer is over
-let endTime = new Date(startTime.getTime() + sessionLength)
+let endTime = startTime + sessionLength
+
+let leftTimeWhenPaused = null;
 
 setDOMTimer(sessionLength)
 
@@ -20,13 +22,13 @@ console.log(startTime, endTime)
 
 let isPaused = false; 
 
-function setTimer() {
+function main() {
 	if (isPaused) {
 		return
 	}
 
-	let date = new Date()
-	let leftTime = endTime.getTime() - date.getTime()
+	let date = Date.now()
+	let leftTime = endTime - date
 
 	
 	if (date >= endTime) {
@@ -37,23 +39,27 @@ function setTimer() {
 	
 	setDOMTimer(leftTime)
 	
-	setTimeout(setTimer, 500)
+	setTimeout(main, 500)
 	
 }
-
-setTimer()
-
 
 
 // time modes: running, paused, break
 
 pauseButton.onclick = function() {
+	isPaused = true;
+	let now = Date.now();
+	leftTimeWhenPaused = endTime - now;
+
 	time.setAttribute('data-mode', 'paused')
-	isPaused = true
-	console.log('set isPaused to', isPaused)
-	console.log(new Date())
 }
 
 startButton.onclick = function(event) {
+	startTime = Date.now();
+	isPaused = false;
 
+	endTime = startTime + (leftTimeWhenPaused ? leftTimeWhenPaused : sessionLength);
+
+	time.setAttribute('data-mode', 'running')
+	main()
 }
