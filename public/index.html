@@ -7,16 +7,17 @@
     <link rel="stylesheet" href="./css/style.css">
     <title>Deep Focus</title>
     <link rel="shortcut icon" href="./icon/icon.png" type="image/x-icon">
-    <script defer src="./js/main.js"></script>
+    <!-- <script defer src="./js/main.js"></script> -->
     <!-- <script defer src="./js/timer.js"></script> -->
     <script defer src="./js/newTimer.js"></script>
 </head>
 <body class="theme1">
     <div class="main-cont">
         <!-- <canvas id="timer-canvas" width="800" height="800"></canvas> -->
-        <p id="time">00:00</p>
+        <p id="time" data-mode="running">00:00</p>
         <ul class="buttons">
             <li><button  id="pauseButton"><img src="./images/pause.png" alt=""></button></li>
+            <li><button  id="startButton"><img src="./images/start.png" alt=""></button></li>
             <li><button  id="stopButton"><img src="./images/stop.png" alt=""></button></li>
             <li><button  id="breakButton"><img src="./images/complete.png" alt=""></button></li>
         </ul>

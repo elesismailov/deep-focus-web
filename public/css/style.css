@@ -64,7 +64,6 @@
 
 @font-face {
   font-family: "Poppins";
-  src: url(../fonts/Poppins-Light.ttf);
 }
 
 body {
@@ -106,6 +105,30 @@ body {
   margin: -86px auto auto -100px;
 }
 
+.main-cont #time[data-mode="running"] ~ .buttons #pauseButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main-cont #time[data-mode="paused"] ~ .buttons #startButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main-cont #time[data-mode="paused"] ~ .buttons #stopButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main-cont #time[data-mode="break"] ~ .buttons #pauseButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .main-cont .buttons {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -121,6 +144,7 @@ body {
 }
 
 .main-cont .buttons > li > button {
+  display: none;
   width: 70px;
   height: 70px;
   background-color: transparent;
@@ -142,10 +166,6 @@ body {
 
 .main-cont .buttons > li > button > svg > path {
   stroke-width: 30px;
-}
-
-.main-cont .buttons > li #stopButton, .main-cont .buttons > li #breakButton {
-  display: none;
 }
 
 .done-cont {

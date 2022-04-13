@@ -1,5 +1,10 @@
 'use strict'
 
+function setDOMTimer(time) {
+    document.querySelector("#time").innerHTML = `${("0" + Math.floor(time/1000/60)).slice(-2)}:${("0" + Math.floor(time/1000%60)).slice(-2)}`;
+
+}
+
 // sessionLength = 1_500_000
 let sessionLength = 10_000
 
@@ -36,16 +41,19 @@ function setTimer() {
 	
 }
 
-setTimeout(setTimer, 900)
+setTimer()
 
 
-function setDOMTimer(time) {
-    document.querySelector("#time").innerHTML = `${("0" + Math.floor(time/1000/60)).slice(-2)}:${("0" + Math.floor(time/1000%60)).slice(-2)}`;
 
-}
-
+// time modes: running, paused, break
 
 pauseButton.onclick = function() {
+	time.setAttribute('data-mode', 'paused')
 	isPaused = true
 	console.log('set isPaused to', isPaused)
+	console.log(new Date())
+}
+
+startButton.onclick = function(event) {
+
 }

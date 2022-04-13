@@ -60,7 +60,7 @@
 
 @font-face {
     font-family: "Poppins";
-    src: url(../fonts/Poppins-Light.ttf);
+    // src: url(../fonts/Poppins-Light.ttf);
 }
 body{
     font-size: 16px;
@@ -104,6 +104,19 @@ body{
         margin: -86px auto auto -100px;
         
     }
+    #time[data-mode="running"] ~ .buttons #pauseButton {
+        display: flex;
+    }
+    #time[data-mode="paused"] ~ .buttons #startButton {
+        display: flex;
+    }
+    #time[data-mode="paused"] ~ .buttons #stopButton {
+        display: flex;
+    }
+    #time[data-mode="break"] ~ .buttons #breakButton {
+        display: flex;
+    }
+    
     .buttons {
         display: flex;
         position: absolute;
@@ -113,6 +126,7 @@ body{
         > li {
             list-style: none;
             > button{
+                display: none;
                 width: 70px;
                 height: 70px;
                 background-color: transparent;
@@ -132,7 +146,7 @@ body{
                 }
             }
             #stopButton, #breakButton{
-                display: none;
+                // display: none;
             }
         }
     }
