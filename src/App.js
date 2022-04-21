@@ -1,97 +1,86 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
+
+function stateReducer(state, action) {
+	switch (action.type) {
+		case 'on': {
+			return {...state, isOn: true}
+		}
+		case 'off': {
+			return {...state, isOn: false}
+		}
+		case 'start': {
+			let startTime = Date.now();
+			let endTime = startTime + state.sessionLength;
+			console.log('start dispatch')
+			return {...state, startTime, endTime, isOn: true}
+
+		}
+		case 'time': {
+			return {...state, time: action.payload}
+		}
+		case 'interval': {
+			action.payload()
+			return state
+		}
+		case 'status': {
+			console.log(state)
+			return state
+		}
+	}
+}
+
+const initialState = {
+	sessionLength: 10_000,
+	time: 0,
+	isOn: false,
+	startTime: null,
+	endTime: null,
+	leftTimeWhenPaused: null,
+};
 
 function App() {
-	
-	// let sessionLength = 1500_000 // ms
-	let sessionLength = 10_000 // ms
 
-	const [time, setTime] = useState(sessionLength);
-	const [isOn ,setIsOn] = useState(false);
-
-	const [startTime, setStartTime] = useState(null);
-	const [endTime, setEndTime] = useState(null)
+	function status() {
+		dispatch({type: 'status'})
+	}
 	
-	const [leftTimeWhenPaused, setLeftTimeWhenPaused] = useState(null);
-
-	// THE PROBLEM WITH THESE IS THAT THEY GET ERASED ON COMPONENT CHANGE
-	// let startTime = 0;
-	// let endTime = 0
-	
-	// This is the schema
-	// isOn change => startTime change => endTime change => interval() call
+	const [state, dispatch] = useReducer(stateReducer, initialState);
+	const {	sessionLength, time, isOn, startTime, endTime, leftTimeWhenPaused } = state;
 
 	useEffect(() => {
-		if (endTime !== null) {
-			interval()
-		}
-	}, [endTime])
-	
-	useEffect(() => {
-		if (startTime !== null) {
-			setEndTime(startTime + (leftTimeWhenPaused === null ? sessionLength : leftTimeWhenPaused))
-		}
-	}, [startTime])
-
-	useEffect( () => {
-		if (isOn) {
-			setStartTime(Date.now())
-		} else {
-		}
+		if (isOn) interval()
 	}, [isOn])
-
-	useEffect(() => {
-		if (leftTimeWhenPaused !== null) {
-
-			console.log(leftTimeWhenPaused)
-			setEndTime(null)
-
-			setIsOn(false)
-
-		}
-	}, [leftTimeWhenPaused])
 
 	function start() {
 		if (!isOn) {
-
-			setIsOn(true)
-
+			console.log('started')
+			dispatch({type: 'start'})
+			dispatch({type: 'interval', payload: interval})
+			dispatch({type: 'time', payload: 10000})
 		}
 	}
 
 	function pause() {
-		
-		if (isOn) {
-
-			let now = Date.now();
-
-			setLeftTimeWhenPaused(endTime - now)
-
-		}
 	}
 
 	function interval() {
-
-		if (isOn && endTime !== null) {
-		
+		if (isOn) {
 			let now = Date.now();
-			
+
 			if (now <= endTime) {
-				
 				let leftTime = endTime - now;
 
-				setTime(leftTime + 700)
+				dispatch({type: 'time', payload: leftTime})
 
 				setTimeout(interval, 500)
-
 			} else {
-
-				console.log('session is over')
-				console.log(time)
-				setIsOn(false)
-
+				console.log('Session is over')
+				dispatch({type: 'off'})
 			}
 		}
 	}
+
+
 
 	return (
 		<div className="App">
@@ -101,6 +90,7 @@ function App() {
 
 			<button onClick={ start }>Start</button>
 			<button onClick={ pause }>Pause</button>
+			<button onClick={ status }>Status</button>
 
 		</div>
   );
