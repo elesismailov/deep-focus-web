@@ -14,8 +14,8 @@ function stateReducer(state, action) {
 			let endTime = startTime + (state.leftTimeWhenPaused !== null ? state.leftTimeWhenPaused : state.sessionLength);
 			return {...state, startTime, endTime, isOn: true}
 		}
-		case 'stop': {
-			console.info('Dispatched STOP')
+		case 'pause': {
+			console.info('Dispatched PAUSE')
 			let now = Date.now();
 			let leftTimeWhenPaused = state.endTime - now;
 			return {...state, leftTimeWhenPaused, isOn: false}
@@ -23,6 +23,7 @@ function stateReducer(state, action) {
 		case 'reset': {
 			return {
 				...state,
+				// time: state.sessionLength,
 				leftTimeWhenPaused: null,
 				startTime: null,
 				endTime: null,
@@ -72,7 +73,14 @@ function App() {
 
 	function pause() {
 		if (isOnRef.current) {
-			dispatch({type: 'stop'})
+			dispatch({type: 'pause'})
+		}
+	}
+	function stop() {
+		if (!isOnRef.current) {
+			dispatch({type: 'reset'})
+			dispatch({type: 'time', payload: sessionLength})
+			dispatch({type: 'off'})
 		}
 	}
 
@@ -104,6 +112,7 @@ function App() {
 
 			<button onClick={ start }>Start</button>
 			<button onClick={ pause }>Pause</button>
+			<button onClick={ stop }>Stop</button>
 			<button onClick={ status }>Status</button>
 
 		</div>
