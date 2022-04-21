@@ -8,40 +8,88 @@ function App() {
 	const [time, setTime] = useState(sessionLength);
 	const [isOn ,setIsOn] = useState(false);
 
-	let startTime = 0;
-	let endTime = 0
+	const [startTime, setStartTime] = useState(null);
+	const [endTime, setEndTime] = useState(null)
+	
+	const [leftTimeWhenPaused, setLeftTimeWhenPaused] = useState(null);
+
+	// THE PROBLEM WITH THESE IS THAT THEY GET ERASED ON COMPONENT CHANGE
+	// let startTime = 0;
+	// let endTime = 0
+	
+	// This is the schema
+	// isOn change => startTime change => endTime change => interval() call
+
+	useEffect(() => {
+		if (endTime !== null) {
+			interval()
+		}
+	}, [endTime])
+	
+	useEffect(() => {
+		if (startTime !== null) {
+			setEndTime(startTime + (leftTimeWhenPaused === null ? sessionLength : leftTimeWhenPaused))
+		}
+	}, [startTime])
+
+	useEffect( () => {
+		if (isOn) {
+			setStartTime(Date.now())
+		} else {
+		}
+	}, [isOn])
+
+	useEffect(() => {
+		if (leftTimeWhenPaused !== null) {
+
+			console.log(leftTimeWhenPaused)
+			setEndTime(null)
+
+			setIsOn(false)
+
+		}
+	}, [leftTimeWhenPaused])
 
 	function start() {
 		if (!isOn) {
 
-			startTime = Date.now();
-			endTime = startTime + sessionLength;
-
 			setIsOn(true)
 
-			interval()
+		}
+	}
+
+	function pause() {
+		
+		if (isOn) {
+
+			let now = Date.now();
+
+			setLeftTimeWhenPaused(endTime - now)
+
 		}
 	}
 
 	function interval() {
+
+		if (isOn && endTime !== null) {
 		
-		let now = Date.now();
-		
-		if (now <= endTime) {
+			let now = Date.now();
 			
-			let leftTime = endTime - now;
+			if (now <= endTime) {
+				
+				let leftTime = endTime - now;
 
-			setTime(leftTime + 700) // 700 is a number for the user
-			setTimeout(interval, 500)
+				setTime(leftTime + 700)
 
-		} else {
+				setTimeout(interval, 500)
 
-			console.log('session is over')
+			} else {
 
-			setIsOn(false)
+				console.log('session is over')
+				console.log(time)
+				setIsOn(false)
 
-			// save the session
-
+			}
 		}
 	}
 
@@ -52,6 +100,7 @@ function App() {
 			</p>
 
 			<button onClick={ start }>Start</button>
+			<button onClick={ pause }>Pause</button>
 
 		</div>
   );
