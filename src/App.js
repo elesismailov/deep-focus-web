@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 
 function stateReducer(state, action) {
 	switch (action.type) {
@@ -9,23 +9,34 @@ function stateReducer(state, action) {
 			return {...state, isOn: false}
 		}
 		case 'start': {
+			console.info('Dispatched START')
 			let startTime = Date.now();
-			let endTime = startTime + state.sessionLength;
-			console.log('start dispatch')
+			let endTime = startTime + (state.leftTimeWhenPaused !== null ? state.leftTimeWhenPaused : state.sessionLength);
 			return {...state, startTime, endTime, isOn: true}
+		}
+		case 'stop': {
+			console.info('Dispatched STOP')
+			let now = Date.now();
+			let leftTimeWhenPaused = state.endTime - now;
+			return {...state, leftTimeWhenPaused, isOn: false}
+		}
+		case 'reset': {
+			return {
+				...state,
+				leftTimeWhenPaused: null,
+				startTime: null,
+				endTime: null,
+			}
 
 		}
 		case 'time': {
 			return {...state, time: action.payload}
 		}
-		case 'interval': {
-			action.payload()
-			return state
-		}
 		case 'status': {
 			console.log(state)
 			return state
 		}
+		default: break;
 	}
 }
 
@@ -43,28 +54,30 @@ function App() {
 	function status() {
 		dispatch({type: 'status'})
 	}
-	
+
 	const [state, dispatch] = useReducer(stateReducer, initialState);
 	const {	sessionLength, time, isOn, startTime, endTime, leftTimeWhenPaused } = state;
+	const isOnRef = useRef(isOn);
 
 	useEffect(() => {
+		isOnRef.current = isOn;
 		if (isOn) interval()
 	}, [isOn])
 
 	function start() {
-		if (!isOn) {
-			console.log('started')
+		if (!isOnRef.current) {
 			dispatch({type: 'start'})
-			dispatch({type: 'interval', payload: interval})
-			dispatch({type: 'time', payload: 10000})
 		}
 	}
 
 	function pause() {
+		if (isOnRef.current) {
+			dispatch({type: 'stop'})
+		}
 	}
 
 	function interval() {
-		if (isOn) {
+		if (isOnRef.current) {
 			let now = Date.now();
 
 			if (now <= endTime) {
@@ -75,6 +88,7 @@ function App() {
 				setTimeout(interval, 500)
 			} else {
 				console.log('Session is over')
+				dispatch({type: 'reset'})
 				dispatch({type: 'off'})
 			}
 		}
