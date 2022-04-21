@@ -5,7 +5,7 @@ function Button(props) {
 
 	return(
 		<button onClick={ handler }>
-			<img src={ src } alt="" />
+			<img src={ src } alt="" width="50" height="50" />
 		</button>
 	);
 }

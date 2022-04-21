@@ -8,8 +8,8 @@ import pauseImage from './../images/pause.png';
 import reportImage from './../images/report.svg';
 
 const initialState = {
-	sessionLength: 10_000,
-	time: 0,
+	sessionLength: 10_000, // this can be both break and focus session
+	time: 0, // user indicator
 	isOn: false,
 	startTime: null,
 	endTime: null,
@@ -81,10 +81,6 @@ function Timer() {
 			<Button text='Pause' src={ pauseImage } handler={ pause } />
 			<Button text='Stop' src={ stopImage } handler={ stop } />
 			<Button text='Status' src={ reportImage } handler={ status } />
-			<button onClick={ start }>Start</button>
-			<button onClick={ pause }>Pause</button>
-			<button onClick={ stop }>Stop</button>
-			<button onClick={ status }>Status</button>
 
 		</div>
 	);
