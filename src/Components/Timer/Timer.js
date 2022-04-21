@@ -1,5 +1,11 @@
 import React, { useEffect, useReducer, useRef } from 'react';
 import timerReducer from './TimerReducer';
+import Button from './Button';
+
+import startImage from './../images/start.png';
+import stopImage from './../images/stop.png';
+import pauseImage from './../images/pause.png';
+import reportImage from './../images/report.svg';
 
 const initialState = {
 	sessionLength: 10_000,
@@ -9,6 +15,7 @@ const initialState = {
 	endTime: null,
 	leftTimeWhenPaused: null,
 };
+
 
 function Timer() {
 
@@ -70,6 +77,10 @@ function Timer() {
 			<p id="dom-timer">{ `${("0" + Math.floor(time/1000/60)).slice(-2)}:${("0" + Math.floor(time/1000%60)).slice(-2)}` }
 			</p>
 
+			<Button text='Start' src={ startImage } handler={ start } />
+			<Button text='Pause' src={ pauseImage } handler={ pause } />
+			<Button text='Stop' src={ stopImage } handler={ stop } />
+			<Button text='Status' src={ reportImage } handler={ status } />
 			<button onClick={ start }>Start</button>
 			<button onClick={ pause }>Pause</button>
 			<button onClick={ stop }>Stop</button>
