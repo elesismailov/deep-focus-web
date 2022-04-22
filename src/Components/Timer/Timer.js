@@ -8,7 +8,8 @@ import pauseImage from './../images/pause.png';
 import reportImage from './../images/report.svg';
 
 const initialState = {
-	sessionLength: 10_000, // this can be both break and focus session
+	// sessionLength: 10_000, // this can be both break and focus session
+	sessionLength: null, // this can be both break and focus session
 	time: 0, // user indicator
 	isOn: false,
 	startTime: null,
@@ -17,12 +18,13 @@ const initialState = {
 };
 
 
-function Timer() {
+function Timer(props) {
 
 	function status() {
 		dispatch({type: 'status'})
 	}
 
+	const { mode, sessions, sessionNumber, nextSession, switchMode } = props;
 	const [state, dispatch] = useReducer(timerReducer, initialState);
 	const {	sessionLength, time, isOn, endTime } = state;
 	const isOnRef = useRef(isOn);
@@ -33,9 +35,14 @@ function Timer() {
 	}, [isOn])
 
 	function start() {
+
 		if (!isOnRef.current) {
-			dispatch({type: 'start'})
+			dispatch({
+				type: 'start',
+				payload: sessions[sessionNumber],
+			})
 		}
+
 	}
 
 	function pause() {
@@ -63,8 +70,17 @@ function Timer() {
 				setTimeout(interval, 500)
 			} else {
 				console.log('Session is over')
+				nextSession()
 				dispatch({type: 'reset'})
+				dispatch({
+					type: 'start',
+					payload: sessions[sessions.length-1 === sessionNumber ? 0 : sessionNumber+1],
+				})
 				dispatch({type: 'off'})
+				dispatch({type: 'on'})
+
+				// here IMPLEMENT save session
+				// sessionLength, mode, startTime, endTime
 			}
 		}
 	}

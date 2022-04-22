@@ -10,8 +10,9 @@ function timerReducer(state, action) {
 		case 'start': {
 			console.info('Dispatched START')
 			let startTime = Date.now();
-			let endTime = startTime + (state.leftTimeWhenPaused !== null ? state.leftTimeWhenPaused : state.sessionLength);
-			return {...state, startTime, endTime, isOn: true}
+			let sessionLength = action.payload;
+			let endTime = startTime + (state.leftTimeWhenPaused !== null ? state.leftTimeWhenPaused : sessionLength);
+			return {...state, startTime, endTime, isOn: true, sessionLength}
 		}
 		case 'pause': {
 			console.info('Dispatched PAUSE')
