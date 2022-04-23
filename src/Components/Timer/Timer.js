@@ -94,13 +94,29 @@ function Timer(props) {
 	return (
 		<div >
 
-			<p id="dom-timer">{ `${("0" + Math.floor(time/1000/60)).slice(-2)}:${("0" + Math.floor(time/1000%60)).slice(-2)}` }
-			</p>
+			<div className="outter-ring w-80 h-80 border-purple border-[32px] rounded-full flex items-center justify-center">
+				<div className="inner-ring w-[16rem] h-[16rem] border-green border-[30px] rounded-full flex flex-col column items-center justify-center gap-2.5">
 
-			{ !isOn && <Button text='Start' src={ startImage } handler={ start } />}
-			{ isOn && <Button text='Pause' src={ pauseImage } handler={ pause } />}
-			{ (!isOn && !isFirst) && <Button text='Stop' src={ stopImage } handler={ stop } />}
-			{ <Button text='Status' src={ reportImage } handler={ status } />}
+					<p className="text-paleGrey text-md">
+						{ mode ?
+							'Break':
+							'Focus'
+						}
+					</p>
+
+					<p className="text-5xl text-md" id="dom-timer">{ `${("0" + Math.floor(time/1000/60)).slice(-2)}:${("0" + Math.floor(time/1000%60)).slice(-2)}` }
+					</p>
+
+					<p className="text-paleGrey">Session: { sessionNumber }</p>
+
+				</div>
+			</div>
+			<div className="flex items-center justify-center mt-5 gap-2">
+				{ !isOn && <Button text='Start' src={ startImage } handler={ start } />}
+				{ isOn && <Button text='Pause' src={ pauseImage } handler={ pause } />}
+				{ (!isOn && !isFirst) && <Button text='Stop' src={ stopImage } handler={ stop } />}
+				{ <Button text='Status' src={ reportImage } handler={ status } />}
+			</div>
 
 		</div>
 	);

@@ -27,17 +27,15 @@ function TimerState() {
 	}
 
 	return(
-		<div className='center-container'>
-			<p>Mode: { mode }</p>
-			<p>Session: { sessionNumber }</p>
-			<Timer
-				mode={ mode }
-				sessions={ sessions }
-				sessionNumber={ sessionNumber }	
-				nextSession={ nextSession }
-				switchMode={ switchMode }
-				resetCurrent={ resetCurrent }
-			/>
+		<div className='center-container h-full flex items-center justify-center'>
+					<Timer
+						mode={ mode }
+						sessions={ sessions }
+						sessionNumber={ sessionNumber }	
+						nextSession={ nextSession }
+						switchMode={ switchMode }
+						resetCurrent={ resetCurrent }
+					/>
 		</div>
 	);
 }
