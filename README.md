@@ -1,4 +1,11 @@
-# Getting Started with Create React App
+
+# My Pomodoro
+
+I just couldn't find a good pomodoro timer that can track time and sync across devices.
+				
+![Current look](./screenshots/first-styling.png)
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

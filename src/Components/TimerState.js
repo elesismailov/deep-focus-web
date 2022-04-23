@@ -6,7 +6,8 @@ function TimerState() {
 	// 0 - work, 1 - break; this will decide whether to record it or not
 	const [mode, setMode] = useState(1);
 	// [workLength, breakLength, ...] ALWAYS the first session is work
-	const [sessions, setSessions] = useState([10000, 5000, 10000, 3000]);
+	// const [sessions, setSessions] = useState([10000, 5000, 10000, 3000]);
+	const [sessions, setSessions] = useState([2000_000, 600_000, 2000_000]);
 	// the number to access the current session
 	const [sessionNumber, setSessionNumber] = useState(0);
 
