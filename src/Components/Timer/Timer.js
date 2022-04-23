@@ -24,7 +24,7 @@ function Timer(props) {
 		dispatch({type: 'status'})
 	}
 
-	const { mode, sessions, sessionNumber, nextSession, switchMode } = props;
+	const { mode, sessions, sessionNumber, nextSession, resetCurrent } = props;
 	const [state, dispatch] = useReducer(timerReducer, initialState);
 	const {	sessionLength, time, isOn, endTime } = state;
 	const isOnRef = useRef(isOn);
@@ -53,8 +53,9 @@ function Timer(props) {
 	function stop() {
 		if (!isOnRef.current) {
 			dispatch({type: 'reset'})
-			dispatch({type: 'time', payload: sessionLength})
+			dispatch({type: 'time', payload: sessions[0]})
 			dispatch({type: 'off'})
+			resetCurrent()
 		}
 	}
 

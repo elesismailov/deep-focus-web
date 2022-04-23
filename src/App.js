@@ -21,6 +21,10 @@ function App() {
 	const switchMode = () => {
 		setMode(mode === 1 ? 0 : 1)
 	}
+	const resetCurrent = () => {
+		setMode(0)
+		setSessionNumber(0)
+	}
 
 	return (
 		<div className="App">
@@ -32,7 +36,7 @@ function App() {
 				sessionNumber={ sessionNumber }	
 				nextSession={ nextSession }
 				switchMode={ switchMode }
-
+				resetCurrent={ resetCurrent }
 			/>
 		</div>
 	);
