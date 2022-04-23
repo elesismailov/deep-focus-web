@@ -89,7 +89,7 @@ function Timer(props) {
 
 
 	return (
-		<div className="App">
+		<div >
 
 			<p id="dom-timer">{ `${("0" + Math.floor(time/1000/60)).slice(-2)}:${("0" + Math.floor(time/1000%60)).slice(-2)}` }
 			</p>
