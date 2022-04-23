@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from 'react';
+import React, { useState, useEffect, useReducer, useRef } from 'react';
 import timerReducer from './TimerReducer';
 import Button from './Button';
 
@@ -28,6 +28,7 @@ function Timer(props) {
 	const [state, dispatch] = useReducer(timerReducer, initialState);
 	const {	sessionLength, time, isOn, endTime } = state;
 	const isOnRef = useRef(isOn);
+	const [isFirst, setIsFirst] = useState(true);
 
 	useEffect(() => {
 		isOnRef.current = isOn;
@@ -35,6 +36,7 @@ function Timer(props) {
 	}, [isOn])
 
 	function start() {
+		setIsFirst(false);
 
 		if (!isOnRef.current) {
 			dispatch({
@@ -55,6 +57,7 @@ function Timer(props) {
 			dispatch({type: 'reset'})
 			dispatch({type: 'time', payload: sessions[0]})
 			dispatch({type: 'off'})
+			setIsFirst(true)
 			resetCurrent()
 		}
 	}
@@ -94,10 +97,10 @@ function Timer(props) {
 			<p id="dom-timer">{ `${("0" + Math.floor(time/1000/60)).slice(-2)}:${("0" + Math.floor(time/1000%60)).slice(-2)}` }
 			</p>
 
-			<Button text='Start' src={ startImage } handler={ start } />
-			<Button text='Pause' src={ pauseImage } handler={ pause } />
-			<Button text='Stop' src={ stopImage } handler={ stop } />
-			<Button text='Status' src={ reportImage } handler={ status } />
+			{ !isOn && <Button text='Start' src={ startImage } handler={ start } />}
+			{ isOn && <Button text='Pause' src={ pauseImage } handler={ pause } />}
+			{ (!isOn && !isFirst) && <Button text='Stop' src={ stopImage } handler={ stop } />}
+			{ <Button text='Status' src={ reportImage } handler={ status } />}
 
 		</div>
 	);
