@@ -5,7 +5,7 @@ function App() {
 
 
 	return (
-		<div className="App">
+		<div className="App bg-black text-white">
 			<TimerState />
 		</div>
 	);

@@ -27,7 +27,7 @@ function TimerState() {
 	}
 
 	return(
-		<div>
+		<div className='center-container'>
 			<p>Mode: { mode }</p>
 			<p>Session: { sessionNumber }</p>
 			<Timer
