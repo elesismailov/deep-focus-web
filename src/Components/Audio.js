@@ -9,11 +9,15 @@ function Audio() {
 	const audioEl = useRef(null);
 
 	function play(mode) {
+		
+		let audio = audioEl.current;
+
+		audio.currentTime = 0
 
 		if (mode === 1) { // audio for the work session
-			audioEl.current.play()
+			audio.play()
 		} else if ( mode === 0) { // audio for the brake session
-			audioEl.current.play()
+			audio.play()
 		}
 
 	}
