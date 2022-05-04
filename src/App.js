@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import TimerState from './Components/TimerState';
-import Audio from './Components/Audio'
+import AppState from './AppState';
 
 function App() {
 
 
 	return (
 		<div className="App h-screen bg-black text-white">
-			<Audio />
+			<AppState />
 		</div>
 	);
 }
