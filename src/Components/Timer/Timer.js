@@ -5,7 +5,6 @@ import Button from './Button';
 import startImage from './../images/start.png';
 import stopImage from './../images/stop.png';
 import pauseImage from './../images/pause.png';
-import reportImage from './../images/report.svg';
 
 const initialState = {
 	// sessionLength: 10_000, // this can be both break and focus session
@@ -121,7 +120,6 @@ function Timer(props) {
 				{ !isOn && <Button text='Start' src={ startImage } handler={ start } />}
 				{ isOn && <Button text='Pause' src={ pauseImage } handler={ pause } />}
 				{ (!isOn && !isFirst) && <Button text='Stop' src={ stopImage } handler={ stop } />}
-				{ <Button text='Status' src={ reportImage } handler={ status } />}
 			</div>
 
 		</div>
