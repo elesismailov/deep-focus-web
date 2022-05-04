@@ -12,7 +12,7 @@ function TimerState() {
 	const [sessionNumber, setSessionNumber] = useState(0);
 
 	useEffect(() => {
-		sessionNumber%2 == 0 ? setMode(0) : setMode(1);
+		sessionNumber%2 === 0 ? setMode(0) : setMode(1);
 	}, [sessionNumber])
 
 	const nextSession = () => {

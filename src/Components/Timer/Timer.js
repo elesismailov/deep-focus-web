@@ -34,6 +34,9 @@ function Timer(props) {
 		isOnRef.current = isOn;
 		if (isOn) interval()
 	}, [isOn])
+	useEffect(() => {
+		dispatch({type: 'time', payload: sessions[0]})
+	}, [])
 
 	function start() {
 		setIsFirst(false);
