@@ -24,7 +24,7 @@ function Timer(props) {
 		dispatch({type: 'status'})
 	}
 
-	const { mode, sessions, sessionNumber, nextSession, resetCurrent } = props;
+	const { play, mode, sessions, sessionNumber, nextSession, resetCurrent } = props;
 	const [state, dispatch] = useReducer(timerReducer, initialState);
 	const {	sessionLength, time, isOn, endTime } = state;
 	const isOnRef = useRef(isOn);
@@ -76,8 +76,11 @@ function Timer(props) {
 
 				setTimeout(interval, 500)
 			} else {
-				console.log('Session is over')
+
+				play(mode)
+
 				nextSession()
+
 				dispatch({type: 'reset'})
 				dispatch({
 					type: 'start',

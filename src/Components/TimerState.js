@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Timer from './Timer/Timer';
 
-function TimerState() {
+function TimerState({ play }) {
 
 	// 0 - work, 1 - break; this will decide whether to record it or not
 	const [mode, setMode] = useState(1);
+
 	// [workLength, breakLength, ...] ALWAYS the first session is work
-	// const [sessions, setSessions] = useState([10000, 5000, 10000, 3000]);
-	const [sessions, setSessions] = useState([2000_000, 600_000, 2000_000]);
+	const [sessions, setSessions] = useState([10000, 5000, 10000, 3000]);
+	// const [sessions, setSessions] = useState([2000_000, 600_000, 2000_000]);
+
 	// the number to access the current session
 	const [sessionNumber, setSessionNumber] = useState(0);
 
@@ -30,6 +32,7 @@ function TimerState() {
 	return(
 		<div className='center-container h-full flex items-center justify-center'>
 					<Timer
+						play={ play }
 						mode={ mode }
 						sessions={ sessions }
 						sessionNumber={ sessionNumber }	
