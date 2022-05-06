@@ -2,6 +2,8 @@ import React, { useState, useEffect, useReducer, useRef } from 'react';
 import timerReducer from './TimerReducer';
 import Button from './Button';
 
+import { saveSession } from '../../helpers/save';
+
 import startImage from './../images/start.png';
 import stopImage from './../images/stop.png';
 import pauseImage from './../images/pause.png';
@@ -25,7 +27,7 @@ function Timer(props) {
 
 	const { play, mode, sessions, sessionNumber, nextSession, resetCurrent } = props;
 	const [state, dispatch] = useReducer(timerReducer, initialState);
-	const {	sessionLength, time, isOn, endTime } = state;
+	const {	sessionLength, time, isOn, startTime, endTime } = state;
 	const isOnRef = useRef(isOn);
 	const [isFirst, setIsFirst] = useState(true);
 
@@ -77,6 +79,10 @@ function Timer(props) {
 			} else {
 
 				play(mode)
+
+				if (mode === 0) {
+					saveSession(startTime, endTime)
+				}
 
 				nextSession()
 
