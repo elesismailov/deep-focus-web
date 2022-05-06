@@ -7,7 +7,7 @@ function TimerState({ play }) {
 	const [mode, setMode] = useState(1);
 
 	// [workLength, breakLength, ...] ALWAYS the first session is work
-	const [sessions, setSessions] = useState([10000, 5000, 10000, 3000]);
+	const [sessions, setSessions] = useState([3000, 2000, 3000, 2000]);
 	// const [sessions, setSessions] = useState([2000_000, 600_000, 2000_000]);
 
 	// the number to access the current session
