@@ -3,6 +3,7 @@ let token = '';
 
 function setSaveToken(t) {
 	token = t
+	localStorage.setItem('token', t)
 }
 
 async function saveSession(startTime, endTime) {

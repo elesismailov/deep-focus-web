@@ -24,6 +24,8 @@ function AppState() {
 
 	return(
 		<>
+			<LogIn setToken={ setToken } setLoggedIn={ setLoggedIn }/>
+
 			<Audio />
 		</>
 	)
