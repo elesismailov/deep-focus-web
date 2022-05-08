@@ -31,7 +31,7 @@ function AppState() {
 
 	return(
 		<>
-			<LogIn setToken={ setToken } setLoggedIn={ setLoggedIn }/>
+			<LogIn setToken={ setToken } setLoggedIn={ setLoggedIn } isLoggedIn={ isLoggedIn } />
 
 			<Audio />
 		</>

@@ -19,7 +19,10 @@ async function login(e, cb) {
 	if (token) {
 		cb(token)
 		console.log(token)
+		return 
 	}
+	
+	cb(null)
 }
 
 
