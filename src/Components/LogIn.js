@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { login } from '../helpers/login';
 
-function LogIn({ setToken, setLoggedIn, isLoggedIn }) {
+function LogIn({ setToken, setLoggedIn, isLoggedIn, logout }) {
 
 	const [error, setError] = useState(null);
 
@@ -34,7 +34,7 @@ function LogIn({ setToken, setLoggedIn, isLoggedIn }) {
 				<button>Log In</button>
 			</form>
 			:
-			<button onClick={ () => setLoggedIn(false) }>Log Out</button>
+			<button onClick={ () => logout() }>Log Out</button>
 		}
 
 		</>

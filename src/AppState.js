@@ -1,30 +1,29 @@
 import { useState, useEffect } from 'react';
 
-import { setSaveToken, restoreAppState } from './helpers/save';
+import { setLocalStorageToken, restoreAppState } from './helpers/save';
 
 import Audio from './Components/Audio';
 import LogIn from './Components/LogIn';
 
-function getLocalStorageToken() {
-	return localStorage.getItem('token')
-}
-
 function AppState() {
 
 	const [isLoggedIn, setLoggedIn] = useState(null);
-	const [token, setToken] = useState(null);
+	const [token, setToken] = useState(localStorage.getItem('token'));
 
 	// this is a way to pass the token not through components but closures
-	useEffect(() => { setSaveToken(token) }, [token])
+	useEffect(() => { setLocalStorageToken(token) }, [token])
 
 	// delete token when log out
-	useEffect(() => { if (!isLoggedIn) setToken(null) }, [isLoggedIn])
+	function logout() {
+		setToken(null)
+		setLoggedIn(false)
+	}
 
 	// initialize logged in state
 	useEffect(() => {
 
-		function cb(token) {
-			setToken(token)
+		function cb(t) {
+			setToken(t)
 			setLoggedIn(true)
 		}
 
@@ -34,7 +33,13 @@ function AppState() {
 
 	return(
 		<>
-			<LogIn setToken={ setToken } setLoggedIn={ setLoggedIn } isLoggedIn={ isLoggedIn } />
+			<LogIn 
+				isLoggedIn={ isLoggedIn }
+				setToken={ setToken }
+				setLoggedIn={ setLoggedIn }
+				setLocalStorageToken= { setLocalStorageToken }
+				logout={ logout }
+			/>
 
 			<Audio />
 		</>

@@ -1,9 +1,9 @@
 
 let token = '';
 
-function setSaveToken(t) {
-	token = t
-	localStorage.setItem('token', t)
+function setLocalStorageToken(t) {
+	token = t === null ? '' : t;
+	localStorage.setItem('token', t === null ? '' : t)
 }
 
 async function restoreAppState(cb) {
@@ -51,4 +51,4 @@ async function saveSession(startTime, endTime) {
 }
 
 
-export { saveSession, setSaveToken, restoreAppState }
+export { saveSession, setLocalStorageToken, restoreAppState }
