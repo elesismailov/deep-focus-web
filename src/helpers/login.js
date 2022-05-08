@@ -16,12 +16,10 @@ async function login(e, cb) {
 
 	const token = (await res.json()).token;
 
-
 	if (token) {
 		cb(token)
 		console.log(token)
 	}
-
 }
 
 
