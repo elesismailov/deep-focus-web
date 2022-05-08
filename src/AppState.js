@@ -17,6 +17,9 @@ function AppState() {
 	// this is a way to pass the token not through components but closures
 	useEffect(() => { setSaveToken(token) }, [token])
 
+	// delete token when log out
+	useEffect(() => { if (!isLoggedIn) setToken(null) }, [isLoggedIn])
+
 	// initialize logged in state
 	useEffect(() => {
 

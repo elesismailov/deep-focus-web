@@ -18,7 +18,8 @@ function LogIn({ setToken, setLoggedIn, isLoggedIn }) {
 
 	return(
 		<>
-			<form onSubmit={ (e) => login(e, cb) }>
+		{!isLoggedIn ? 
+			<form onChange={() => setError(null)} onSubmit={ (e) => login(e, cb) }>
 				{error && 
 					<p>Please check your email or password.</p>
 				}
@@ -30,8 +31,12 @@ function LogIn({ setToken, setLoggedIn, isLoggedIn }) {
 					<p>Password:</p>
 					<input type="password" name="password" required />
 				</label>
-				<button>Submit</button>
+				<button>Log In</button>
 			</form>
+			:
+			<button onClick={ () => setLoggedIn(false) }>Log Out</button>
+		}
+
 		</>
 	);
 }
