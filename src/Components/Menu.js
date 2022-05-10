@@ -1,13 +1,20 @@
+import { useState } from 'react';
 
 import MenuButton from './MenuButton';
+import MenuSettingsModel from './MenuSettingsModel';
 
 const Menu = function() {
 
+	const [model, setModel] = useState(null);
+	const [settings, setSettings] = useState(false);
+
 	return(
-		<nav id="menu-bar" className='absolute w-screen flex flex-row-reverse gap-3 p-3'>
+		<nav id="menu-bar" className='absolute w-screen flex gap-3 p-3 justify-end'>
 					
 			<MenuButton className='hello' />
-			<MenuButton />
+			<MenuButton handler={ () => setSettings(true) }/>
+
+			{settings && <MenuSettingsModel close={() => setSettings(false)} />}
 
 		</nav>
 	);
