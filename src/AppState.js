@@ -4,6 +4,7 @@ import { setLocalStorageToken, restoreAppState } from './helpers/save';
 
 import Audio from './Components/Audio';
 import LogIn from './Components/LogIn';
+import Menu from './Components/Menu';
 
 function AppState() {
 
@@ -33,6 +34,9 @@ function AppState() {
 
 	return(
 		<>
+			<Menu>
+				
+			</Menu>
 			<LogIn 
 				isLoggedIn={ isLoggedIn }
 				setToken={ setToken }
